@@ -1,0 +1,33 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "Search Spotify for songs, Bands in Town for concerts, and OMBD for movies",
+  "main": "liri.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeugimAtreides/liri-node-app.git"
+  },
+  "keywords": [
+    "liri",
+    "movies",
+    "bands",
+    "concerts",
+    "music",
+    "artists"
+  ],
+  "author": "M.E. Villarreal",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/LeugimAtreides/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/LeugimAtreides/liri-node-app#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.0.0",
+    "moment": "^2.24.0",
+    "spotify": "^0.3.0"
+  }
+}

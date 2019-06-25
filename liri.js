@@ -13,8 +13,7 @@ var moment = require("moment");
 var fs = require("fs");
 
 // -------------------------Log User Input -------------------------
-nodeArgs = process.argv;
-// console.log(nodeArgs);
+
 
 userInput = process.argv.slice(3).join(" ");
 // console.log(userInput);
@@ -186,4 +185,32 @@ function spotifyThis() {
     
 };
 
-function doWhatItSays() {};
+function doWhatItSays() {
+    fs
+        .readFile("random.txt", "utf8", function(error, data){
+            if (error) {
+                return console.log(error);
+            };
+            // console.log(data);
+
+            var dataArr = data.split(",");
+
+            // console.log(dataArr);
+
+            if (dataArr[0] == "spotify-this-song") {
+                userInput = dataArr[1];
+                spotifyThis();
+            } else if (dataArr[0] == "movie-this") {
+                userInput = dataArr[1];
+                movieThis();
+            } else if (dataArr[0] == "concert-this") {
+                userInput = dataArr[1];
+                concertThis();
+            } else {
+                console.log("Please choose a valid command");
+            }
+
+
+
+        })
+};

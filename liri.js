@@ -19,14 +19,6 @@ nodeArgs = process.argv;
 userInput = process.argv.slice(3).join(" ");
 // console.log(userInput);
 
-// for (i = 3; i < nodeArgs.length; i++) {
-//     if (i > 3 && i < nodeArgs.length) {
-//         userInput = userInput + "+" + nodeArgs[i];
-//     } else {
-//         userInput += nodeArgs[i];
-//     }
-// }
-
 action = process.argv[2];
 
 
@@ -73,9 +65,9 @@ switch (action) {
 
 // -----------------------------Functions---------------------------
 function concertThis() {
-    axios
+    if (userInput) {
+        axios
         .get("https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=43b95e20-19ca-4d56-aa41-9b9e1845fde2")
-        // curl -X GET "https://rest.bandsintown.com/artists/justin%20beiber/events?app_id=43b95e20-19ca-4d56-aa41-9b9e1845fde2" -H "accept: application/json"
         .then(function(response) {
             
             let venueName = response.data[0].venue.name;
@@ -85,19 +77,20 @@ function concertThis() {
 
             console.log("\n" + userInput + " is playing in " + venueCity + ", \nat the venue called " + venueName + ",\non " + nicerDate + ".")
 
-
-
-            
         })
         .catch(function(error) {
             console.log(error);
         })
     
 
+    } else if (userInput == "") {
+        console.log("\nPlease enter an artist in order to search their upcoming events");
+    }
 };
 
 function movieThis() {
-    axios
+    if (userInput) {
+        axios
         .get("http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=trilogy")
         .then(function(response) {
             let title = response.data.Title;
@@ -117,6 +110,31 @@ function movieThis() {
                 throw error;
             }
         })
+    } else if (userInput == "") {
+        let potato = "Mr+Nobody";
+        axios
+        .get("http://www.omdbapi.com/?t=" + potato + "&y=&plot=short&apikey=trilogy")
+        .then(function(response) {
+            let title = response.data.Title;
+            let year = response.data.Year;
+            let rated = response.data.Rated;
+            let genre = response.data.Genre;
+            let rating = response.data.Ratings[1].Value;
+
+            console.log("\nMovie Title: " + JSON.stringify(title, null, 2));
+            console.log("\nRelease Year: " + JSON.stringify(year, null, 2));
+            console.log("\nMovie Rating: " + JSON.stringify(rated, null, 2));
+            console.log("\nMovie Genre: " + JSON.stringify(genre, null, 2));
+            console.log("\nRotten Tomatoes Score: " + JSON.stringify(rating, null, 2));
+        })
+        .catch(function(error){
+            if (error) {
+                throw error;
+            }
+        })
+    }
+
+    
 };
 
 function spotifyThis() {

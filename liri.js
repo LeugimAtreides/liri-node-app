@@ -29,6 +29,7 @@ switch (action) {
     // needs to search the bands-in-town api and produce venue name, location, and date of the event
 
         concertThis();
+        appendCommand();
         break;
     case "movie-this":
     // movie-this
@@ -36,15 +37,18 @@ switch (action) {
     // should look like: node liri.js movie-this '<movie name here>'
     // default movie should be Mr. Nobody
         movieThis();
+        appendCommand();
         break;
     case "spotify-this-song":
     // default shoulde be "The Sign" by Ace of Base
         spotifyThis();
+        appendCommand();
         break;
     case "do-what-it-says":
     // do-what-it-says
     // using the fs node package take the text inside of random.txt and use it to call one of liri's commands
         doWhatItSays();
+        appendCommand();
         break;
 
     default:
@@ -57,8 +61,7 @@ switch (action) {
         // Do not overwrite log.txt with each new command
 
 
-// NOTE
-    // REMEMBER TO USE THE console.log(JSON.stringify(response, null, 2)
+
 
 
 
@@ -212,5 +215,17 @@ function doWhatItSays() {
 
 
 
+        })
+};
+
+function appendCommand() {
+    var text = process.argv.slice(2).join(" ")
+    fs
+        .appendFile("log.txt", '\nMost Recent Command: ' + text, function(err) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("The command has been added to the command log at log.txt")
+            }
         })
 };
